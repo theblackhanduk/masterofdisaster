@@ -105,9 +105,7 @@
 <div id="terminal"></div>
 
 <div id="logoScreen">
-  <!-- <img src="THE BLACKHAND (11).png" style="max-width: 300px;"> -->
-  <div id="logo">THE BLACKHAND</div>
-  <div id="subtitle">MASTER OF DISASTER — 2026</div>
+  <!-- <img src="THE BLACKHAND (12).png" style="max-width: 300px;"> -->
 </div>
 
 <script>
@@ -154,21 +152,22 @@ function typeLine() {
     terminal.innerHTML += '\n\n$ <span class="cursor"></span>';
 
     // Glitch sequence
-    setTimeout(() => {
-      document.body.classList.add("flash");
+setTimeout(() => {
+  document.body.classList.add("flash");
 
-      setTimeout(() => {
-        document.body.classList.remove("flash");
-        terminal.classList.add("glitch");
-        document.body.classList.add("flicker");
+  setTimeout(() => {
+    document.body.classList.remove("flash");
+    terminal.classList.add("glitch");
+    document.body.classList.add("flicker");
 
-        // Show ENTER prompt
-        setTimeout(() => {
-          terminal.innerHTML += "\n\nPRESS ENTER TO CONTINUE_";
-        }, 800);
+    // Clear terminal text
+    terminal.innerHTML = "";
 
-      }, 200);
-    }, 1500);
+    // Show only ENTER prompt
+    terminal.innerHTML = "PRESS ENTER TO CONTINUE_";
+
+  }, 200);
+}, 1500);
   }
 }
 
