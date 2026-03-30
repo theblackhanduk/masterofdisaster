@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: left;
+    text-align: center;
     padding: 40px;
     white-space: pre-wrap;
     line-height: 1.5;
@@ -87,15 +87,14 @@
   }
 
   /* LOGO STYLE */
-  #logo {
-    font-size: 40px;
-    letter-spacing: 3px;
+  #logoScreen img {
+    max-width: 300px;
     margin-bottom: 20px;
   }
 
   #subtitle {
     font-size: 18px;
-    opacity: 0.7;
+    opacity: 0.8;
   }
 </style>
 
@@ -105,13 +104,13 @@
 <div id="terminal"></div>
 
 <div id="logoScreen">
-  <!-- <img src="THE BLACKHAND (12).png" style="max-width: 300px;"> -->
+  <img src="logo.png.png" alt="THE BLACKHAND Logo">
 </div>
 
 <script>
 const lines = [
 "$ boot_sequence --init",
-"[ OK ] Loading THE BLACKHAND protocol",
+"[ OK ] Loading BLACKHAND protocol",
 "",
 "$ access master_of_disaster.bin",
 "Access granted.",
@@ -125,9 +124,9 @@ const lines = [
 "",
 "ERROR: containment failed",
 "",
-"THE BLACKHAND ARE BACK",
+"THE BLACKHAND IS COMING",
 "MASTER OF DISASTER",
-"2026"
+"LATE 2026"
 ];
 
 let i = 0;
@@ -149,25 +148,24 @@ function typeLine() {
       setTimeout(typeLine, 120);
     }
   } else {
-    terminal.innerHTML += '\n\n$ <span class="cursor"></span>';
+    terminal.innerHTML += '\n\n<span class="cursor"></span>';
 
     // Glitch sequence
-setTimeout(() => {
-  document.body.classList.add("flash");
+    setTimeout(() => {
+      document.body.classList.add("flash");
 
-  setTimeout(() => {
-    document.body.classList.remove("flash");
-    terminal.classList.add("glitch");
-    document.body.classList.add("flicker");
+      setTimeout(() => {
+        document.body.classList.remove("flash");
+        terminal.classList.add("glitch");
+        document.body.classList.add("flicker");
 
-    // Clear terminal text
-    terminal.innerHTML = "";
+        // Clear terminal text and show only ENTER prompt
+        setTimeout(() => {
+          terminal.innerHTML = "PRESS ENTER TO CONTINUE_";
+        }, 800);
 
-    // Show only ENTER prompt
-    terminal.innerHTML = "PRESS ENTER TO CONTINUE_";
-
-  }, 200);
-}, 1500);
+      }, 200);
+    }, 1500);
   }
 }
 
