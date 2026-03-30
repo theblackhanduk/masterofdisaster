@@ -187,10 +187,29 @@ function typeLine() {
 typeLine();
 
 // Listen for ENTER key
+let hasEntered = false;
+
+function triggerEnter() {
+  if (hasEntered) return;
+  hasEntered = true;
+  showLogo();
+}
+
+// Keyboard (desktop)
 document.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
-    showLogo();
+    triggerEnter();
   }
+});
+
+// Mobile tap
+document.addEventListener("touchstart", function() {
+  triggerEnter();
+});
+
+// Mouse click
+document.addEventListener("click", function() {
+  triggerEnter();
 });
 
 function showLogo() {
