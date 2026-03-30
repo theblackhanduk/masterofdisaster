@@ -110,6 +110,9 @@
 </div>
 
 <script>
+const glitchSound = new Audio("glitch.mp3");
+glitchSound.volume = 0.7; // optional (0.0 to 1.0)
+
 const lines = [
 "$ boot_sequence --init",
 "[ OK ] Initiating THE BLACKHAND protocol",
@@ -164,7 +167,9 @@ function typeLine() {
     // Glitch sequence
     setTimeout(() => {
       document.body.classList.add("flash");
-
+      document.body.classList.add("flash");
+      glitchSound.currentTime = 0;
+      glitchSound.play();
       setTimeout(() => {
         document.body.classList.remove("flash");
         terminal.classList.add("glitch");
