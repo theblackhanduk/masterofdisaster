@@ -8,13 +8,14 @@
     background: black;
     color: #00ff9f;
     font-family: "Courier New", monospace;
-    font-size: 14px;
+    font-size: 16px;
+    overflow: hidden; /* prevents scrolling */
   }
 
   #terminal {
-    padding: 20px;
+    padding: 40px;
     white-space: pre-wrap;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   .cursor {
@@ -37,64 +38,28 @@
 <script>
 const lines = [
 "$ boot_sequence --init",
+"[ OK ] Loading BLACKHAND protocol",
 "",
-"[    0.0001 ] Initializing kernel...",
-"[    0.0420 ] Mounting /dev/blackhand",
-"[    0.0666 ] Loading modules: distortion, feedback, chaos",
-"",
-"$ whoami",
-"visitor",
-"",
-"$ sudo access /var/blackhand/secure_archive",
-"[sudo] password for visitor: ********",
-"",
+"$ access master_of_disaster.bin",
 "Access granted.",
 "",
-"$ ls -la",
-"master_of_disaster.bin",
-"release.info",
-"signal.log",
+"> Executing...",
 "",
-"$ cat release.info",
-"----------------------------------------",
-"ARTIST: THE BLACKHAND",
-"PROJECT: MASTER OF DISASTER",
-"STATUS: CLASSIFIED",
-"RELEASE: LATE 2026",
-"----------------------------------------",
+"[#####.....] 50%",
+"Injecting distortion...",
 "",
-"$ ./master_of_disaster.bin",
+"[##########] 100%",
 "",
-"[#####...............] 25%",
-"Injecting noise...",
-"Corrupting silence...",
-"",
-"[##########..........] 50%",
-"Amplifying signal...",
-"Distortion rising...",
-"",
-"[###############.....] 75%",
-"Warning: system instability detected",
-"",
-"[####################] 100%",
-"",
-"ERROR: containment failure",
-"ERROR: volume threshold exceeded",
-"",
-"$ tail -f signal.log",
-"...incoming transmission...",
-"...frequency unstable...",
+"ERROR: containment failed",
 "",
 "THE BLACKHAND IS COMING",
-"MASTER OF DISASTER WILL BE UNLEASHED",
-"",
-"$ shutdown -h now",
-"System halted."
+"MASTER OF DISASTER",
+"LATE 2026"
 ];
 
 let i = 0;
 let j = 0;
-const speed = 25; // typing speed
+const speed = 30;
 
 const terminal = document.getElementById("terminal");
 
@@ -108,10 +73,10 @@ function typeLine() {
       terminal.innerHTML += "\n";
       i++;
       j = 0;
-      setTimeout(typeLine, 200);
+      setTimeout(typeLine, 150);
     }
   } else {
-    terminal.innerHTML += '<span class="cursor"></span>';
+    terminal.innerHTML += '\n\n$ <span class="cursor"></span>';
   }
 }
 
