@@ -104,7 +104,9 @@
 <div id="terminal"></div>
 
 <div id="logoScreen">
+  <!-- Logo image -->
   <img src="logo.png" alt="THE BLACKHAND Logo">
+  <div id="subtitle">MASTER OF DISASTER — LATE 2026</div>
 </div>
 
 <script>
@@ -123,11 +125,10 @@ const lines = [
 "[##########] 100%",
 "",
 "ERROR: containment failed",
-"",
-"PAUSE:5000",
+"PAUSE:5000",  // 5 second pause
 "THE BLACKHAND IS COMING",
 "MASTER OF DISASTER",
-"2026"
+"LATE 2026"
 ];
 
 let i = 0;
@@ -138,7 +139,11 @@ const terminal = document.getElementById("terminal");
 
 function typeLine() {
   if (i < lines.length) {
-    if (j < lines[i].length) {
+    if (lines[i].startsWith("PAUSE:")) {
+      const delay = parseInt(lines[i].split(":")[1]);
+      i++;
+      setTimeout(typeLine, delay);
+    } else if (j < lines[i].length) {
       terminal.innerHTML += lines[i].charAt(j);
       j++;
       setTimeout(typeLine, speed);
@@ -160,7 +165,7 @@ function typeLine() {
         terminal.classList.add("glitch");
         document.body.classList.add("flicker");
 
-        // Clear terminal text and show only ENTER prompt
+        // Clear terminal text and show ENTER prompt
         setTimeout(() => {
           terminal.innerHTML = "PRESS ENTER TO CONTINUE_";
         }, 800);
