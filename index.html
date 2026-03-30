@@ -13,25 +13,20 @@
     overflow: hidden;
   }
 
-  /* Terminal: left-aligned text */
-  #terminal {
+  #terminal, #logoScreen {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    text-align: center;
     padding: 40px;
     white-space: pre-wrap;
     line-height: 1.5;
-    flex-direction: column;
   }
 
-  /* Logo screen: centered */
   #logoScreen {
     display: none;
-    height: 100vh;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: center;
     color: white;
   }
@@ -91,30 +86,15 @@
     animation: blink 1s infinite;
   }
 
-  /* Logo style */
+  /* LOGO STYLE */
   #logoScreen img {
     max-width: 300px;
     margin-bottom: 20px;
-    opacity: 0;
   }
 
   #subtitle {
     font-size: 18px;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  /* Logo glitch effect */
-  .logo-glitch {
-    animation: logoGlitch 0.1s infinite alternate;
-  }
-
-  @keyframes logoGlitch {
-    0% { transform: translate(0px,0px) skew(0deg,0deg); }
-    25% { transform: translate(2px,-1px) skew(1deg,-1deg); }
-    50% { transform: translate(-2px,1px) skew(-1deg,1deg); }
-    75% { transform: translate(1px,-2px) skew(0deg,2deg); }
-    100% { transform: translate(0px,0px) skew(0deg,0deg); }
+    opacity: 0.8;
   }
 </style>
 
@@ -124,7 +104,8 @@
 <div id="terminal"></div>
 
 <div id="logoScreen">
-  <img src="logo.png.png" alt="THEBLACKHANDLOGO" id="logo">
+  <!-- Logo image -->
+  <img src="logo.png.png" alt="THEBLACKHANDLOGO">
 </div>
 
 <script>
@@ -132,11 +113,9 @@ const lines = [
 "$ boot_sequence --init",
 "[ OK ] Initiating THE BLACKHAND protocol",
 "",
-"", 
 "$ access master_of_disaster.bin",
 "Access granted.",
 "",
-"",  
 "> Executing...",
 "",
 "[#####.....] 50%",
@@ -144,20 +123,19 @@ const lines = [
 "",
 "[##########] 100%",
 "",
+"........",
 "",
 "ERROR: containment failed",
 "PAUSE:2000",  // 2 second pause
-"",
-"",
 "THE BLACKHAND ARE BACK",
-"",
 "MASTER OF DISASTER",
-"2026"
+"LATE 2026"
 ];
 
 let i = 0;
 let j = 0;
 const speed = 25;
+
 const terminal = document.getElementById("terminal");
 
 function typeLine() {
@@ -213,19 +191,6 @@ function showLogo() {
 
   const logoScreen = document.getElementById("logoScreen");
   logoScreen.style.display = "flex";
-
-  const logo = document.getElementById("logo");
-  const subtitle = document.getElementById("subtitle");
-
-  // Fade in logo
-  logo.style.transition = "opacity 0.5s ease";
-  logo.style.opacity = 1;
-  logo.classList.add("logo-glitch"); // subtle glitch effect
-
-  // Fade in subtitle after short delay
-  setTimeout(() => {
-    subtitle.style.opacity = 1;
-  }, 500);
 }
 </script>
 
