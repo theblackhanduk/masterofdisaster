@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
 <style>
   body {
     margin: 0;
@@ -9,13 +10,25 @@
     color: #00ff9f;
     font-family: "Courier New", monospace;
     font-size: 16px;
-    overflow: hidden; /* prevents scrolling */
+    overflow: hidden;
   }
 
-  #terminal {
+  #terminal, #logoScreen {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
     padding: 40px;
     white-space: pre-wrap;
     line-height: 1.5;
+  }
+
+  #logoScreen {
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    color: white;
   }
 
   .cursor {
@@ -29,16 +42,78 @@
     0%, 50%, 100% { opacity: 1; }
     25%, 75% { opacity: 0; }
   }
+
+  /* GLITCH */
+  .glitch {
+    animation: glitch 0.2s infinite;
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0px, 0px); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0px, 0px); }
+  }
+
+  /* FLICKER */
+  .flicker {
+    animation: flicker 0.1s infinite;
+  }
+
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+
+  /* FLASH */
+  .flash {
+    animation: flash 0.3s;
+  }
+
+  @keyframes flash {
+    0% { background: black; }
+    50% { background: #00ff9f; }
+    100% { background: black; }
+  }
+
+  /* ENTER PROMPT */
+  #enterPrompt {
+    margin-top: 20px;
+    color: #00ff9f;
+    animation: blink 1s infinite;
+  }
+
+  /* LOGO STYLE */
+  #logo {
+    font-size: 40px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
+
+  #subtitle {
+    font-size: 18px;
+    opacity: 0.7;
+  }
 </style>
+
 </head>
 <body>
 
 <div id="terminal"></div>
 
+<div id="logoScreen">
+  <!-- 🔁 Replace this text with an <img src="your-logo.png"> later -->
+  <div id="logo">THE BLACKHAND</div>
+  <div id="subtitle">MASTER OF DISASTER — 2026</div>
+</div>
+
 <script>
 const lines = [
 "$ boot_sequence --init",
-"[ OK ] Loading BLACKHAND protocol",
+"[ OK ] Loading THE BLACKHAND protocol",
 "",
 "$ access master_of_disaster.bin",
 "Access granted.",
@@ -48,11 +123,8 @@ const lines = [
 "[#####.....] 50%",
 "Injecting distortion...",
 "",
-"[#######...] 75%",
-"Creating chaos...",  
-"",
 "[##########] 100%",
-"",  
+"",
 "ERROR: containment failed",
 "",
 "THE BLACKHAND ARE BACK",
@@ -62,7 +134,7 @@ const lines = [
 
 let i = 0;
 let j = 0;
-const speed = 30;
+const speed = 25;
 
 const terminal = document.getElementById("terminal");
 
@@ -76,14 +148,46 @@ function typeLine() {
       terminal.innerHTML += "\n";
       i++;
       j = 0;
-      setTimeout(typeLine, 150);
+      setTimeout(typeLine, 120);
     }
   } else {
     terminal.innerHTML += '\n\n$ <span class="cursor"></span>';
+
+    // Glitch sequence
+    setTimeout(() => {
+      document.body.classList.add("flash");
+
+      setTimeout(() => {
+        document.body.classList.remove("flash");
+        terminal.classList.add("glitch");
+        document.body.classList.add("flicker");
+
+        // Show ENTER prompt
+        setTimeout(() => {
+          terminal.innerHTML += "\n\nPRESS ENTER TO CONTINUE_";
+        }, 800);
+
+      }, 200);
+    }, 1500);
   }
 }
 
 typeLine();
+
+// Listen for ENTER key
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    showLogo();
+  }
+});
+
+function showLogo() {
+  document.body.classList.remove("flicker");
+  terminal.style.display = "none";
+
+  const logoScreen = document.getElementById("logoScreen");
+  logoScreen.style.display = "flex";
+}
 </script>
 
 </body>
